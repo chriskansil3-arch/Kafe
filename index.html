@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cafe</title>
+  
+ <style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f2f2f2;
+}
+
+h1 {
+  color: brown;
+}
+
+.menu {
+  background: red;
+  margin: 15px auto;
+  padding: 10px;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px gray;
+  color: white; 
+}
+
+button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 150px;
+  border-radius: 10px;
+}
+</style>
+  
+
+</head>
+<body>
+
+<h1>Menu Cafe</h1>
+
+<div class="menu">
+<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" width="150">
+<p>Kopi Susu - Rp15000</p>
+<button onclick="tambah('Kopi Susu',15000)">Pesan</button>
+</div>
+
+<div class="menu">
+<img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62" width="150">
+<p>Es Teh - Rp8000</p>
+<button onclick="tambah('Es Teh',8000)">Pesan</button>
+</div>
+
+<h2>Pesanan:</h2>
+<ul id="list"></ul>
+
+<h3>Total: Rp <span id="total">0</span></h3>
+
+<button onclick="kirimWA()">📲 Kirim ke WhatsApp</button>
+
+<script>
+let total = 0;
+let semuaPesanan = [];
+
+function tambah(nama, harga) {
+  const li = document.createElement("li");
+  
+  li.innerHTML = nama + " - Rp" + harga + 
+  " <button onclick='hapus(this,"+harga+")'>❌</button>";
+
+  document.getElementById("list").appendChild(li);
+
+  semuaPesanan.push(nama + " Rp" + harga); // simpan pesanan
+
+  total += harga;
+  document.getElementById("total").textContent = total;
+}
+
+function hapus(btn, harga) {
+  btn.parentElement.remove();
+  total -= harga;
+  document.getElementById("total").textContent = total;
+}
+
+function kirimWA() {
+  let teks = "Pesanan:%0A";
+
+  semuaPesanan.forEach(item => {
+    teks += "- " + item + "%0A";
+  });
+
+  teks += "Total: Rp" + total;
+
+  let nomor = "62895359404932";
+
+  window.open("https://wa.me/" + nomor + "?text=" + teks);
+}
+</script>
+</body>
+</html>
